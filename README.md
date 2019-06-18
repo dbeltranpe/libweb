@@ -1,7 +1,7 @@
 # libWeb
 Aplicación que actúa como herramienta tecnológica que facilita la interacción entre estudiantes (Universitarios y ELE - Lengua extranjera) para el intercambio de libros
 
-Este proyecto fue presentado en la V Feria proyectos de Ingeniería de Sistemas, en el marco de la asignatura Proyecto Núcleo 1. El proyecto fue elegido como el mejor de la feria.
+Este proyecto fue presentado en la V Feria proyectos de Ingeniería de Sistemas, en el marco de la asignatura Proyecto Núcleo 1 cuando cursaba mi tercer semestre universitario. El proyecto fue elegido como el mejor de la feria.
 
 <b>Contexto del Proyecto</b>
 <div style='text-align: justify;'>
