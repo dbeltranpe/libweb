@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Mi Perfil</title>
+
+	<script language="JavaScript">
+		function valida_servientrega() {
+
+			var asunto = document.getElementById('formDialog:asunto').value;
+
+			if (asunto.trim() == "") {
+				alert('Debes llenar el asunto y el contenido');
+				return false;
+
+			} else {
+				return true;
+			}
+
+		}
+	</script>
+</h:head>
+
+<h:body>
+	<h:panelGroup>
+
+		<h:outputStylesheet library="css" name="principal.css" />
+		<h:graphicImage library="images" name="logoPeque.png" styleClass="img" />
+
+		<p:row>
+			<h:form>
+				<p:column>
+					<h:commandButton value="YO" styleClass="btn"
+						action="#{userBean.redireccionMisLibros}"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="MUNDO" styleClass="btn"
+						action="#{userBean.redireccionamientoLibrosMundiales}"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="EDITAR PERFIL" styleClass="btn2"
+						action="#{userBean.prepararEditarUsuario}"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="CERRAR SESIÓN" styleClass="btn2"
+						action="#{userBean.cerrarSesion}"></h:commandButton>
+				</p:column>
+
+			</h:form>
+		</p:row>
+	</h:panelGroup>
+
+	<br />
+	<br />
+	<hr />
+
+	<div>
+		<p:dataTable var="Leftoverbook"
+			value="#{leftOverBookBean.listarLibroSobrantes}" rows="8"
+			paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Autor" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.author}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Fecha Edición" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.date}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Edición" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.edition}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Editorial" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.editorial}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nombre" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.name}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nombre Usuario" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.userName}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Opciones" />
+				</f:facet>
+				<h:outputStylesheet library="css" name="button5.css" />
+				<p:commandButton value="Correo"
+					action="#{leftOverBookBean.enviarCorreo}" update="formDialog:dlg3"
+					oncomplete="PF('dlg3').show();" styleClass="btn5" />
+			</p:column>
+		</p:dataTable>
+	</div>
+
+	<h:form id="formDialog">
+
+		<p:dialog header="Enviar correo" widgetVar="dlg3" modal="true"
+			id="dlg3" width="750" height="300">
+
+			<p:panelGrid columns="2" border="1" cellpadding="10">
+				<f:facet name="header">
+					<h:outputText value="Información" />
+				</f:facet>
+
+				<p:outputLabel value="Para" />
+				<p:outputLabel value="#{leftOverBookBean.emailUser}"></p:outputLabel>
+				<p:outputLabel value="Subject: "></p:outputLabel>
+				<p:inputText id="asunto" value="#{correoBeanUser.subject}"></p:inputText>
+				<p:commandButton value="Enviar"
+					onclick="return valida_servientrega()"
+					action="#{correoBeanUser.enviarCorreo}"></p:commandButton>
+
+			</p:panelGrid>
+
+		</p:dialog>
+
+	</h:form>
+</h:body>
+</html>

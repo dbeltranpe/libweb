@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+
+	<title>libWeb</title>
+
+	<script language="JavaScript">
+		function valida_password() {
+		
+			var password = document.getElementById('frm:password').value;
+			var confirmation = document.getElementById('frm:confirmation').value;
+			
+			if (password.trim() == "") {
+				alert("Debes ingresar tu nueva contraseña");
+				return false;
+			}
+
+			else {
+				if (password.trim().length != password.length) {
+					alert("Tu contraseña no debe tener espacios");
+					return false;
+				} else {
+
+					String
+					alerta = "";
+					if (8 &lt; password.length) {
+						alerta += "- Tu contraseña debe tener máximo 8 caracteres\n";
+					}
+					if (password.length &lt; 6) {
+						alerta += "- Tu contraseña debe tener mínimo 6 caracteres \n";
+					}
+					if (password.search(/\d/) == -1) {
+						alerta += "- Tu contraseña debe tener al menos un número \n";
+					}
+
+					if (password.search(/[a-zA-Z]/) == -1) {
+						alerta += "- Tu contraseña debe tener al menos una mayúscula y una minuscula \n";
+					}
+					
+
+					if (alerta != "") {
+						alert(alerta);
+						return false;
+					} 
+					
+					else if(password!=confirmation)
+						{
+						alert('Las contraseñas no coinciden, revisa por favor');
+						return false;
+						}
+					else {
+						return true;
+					}
+
+				}
+
+			}
+
+		}
+	</script>
+
+</h:head>
+
+<h:body>
+
+	<div align="center">
+		<h1>Cambio de Contraseña</h1>
+		<h3>Para ingresar a libWeb debes cambiar tu contraseña</h3>
+		<br />
+		<h:form id="frm">
+
+			<p:panelGrid>
+
+				<p:row>
+					<p:column>
+						<p>Nueva Contraseña</p>
+					</p:column>
+					<p:column>
+						<p:password id="password" value="#{userBean.usuario.password}"
+							required="true" minlength="6" maxlength="8">
+						</p:password>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column>
+						<p>Confirmar Contraseña</p>
+					</p:column>
+					<p:column>
+						<p:password id="confirmation" required="true" minlength="6"
+							maxlength="8">
+						</p:password>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column colspan="2">
+						<div align="center">
+							<p:commandButton value="¡Cambia mi Contraseña!"
+								onclick="return valida_password()"
+								action="#{userBean.cambioContraseña}" />
+						</div>
+					</p:column>
+				</p:row>
+
+				<p:row>
+					<p:column colspan="2">
+						<div align="center">
+							<h:commandLink value="Regresar" action="#{userBean.redireccionamientoPrincipal}"></h:commandLink>
+						</div>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+
+		</h:form>
+	</div>
+
+</h:body>
+</html>

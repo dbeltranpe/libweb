@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Editar Perfil</title>
+
+	<script language="JavaScript">
+		function valida_modificacion() {
+			String
+			alerta = "";
+			var nickname = document.getElementById('formDialog:username').value;
+			var fullname = document.getElementById('formDialog:namefull').value;
+			var mail = document.getElementById('formDialog:mail').value;
+			var phone = document.getElementById('formDialog:phone').value;
+
+			if (nickname.trim() == "") {
+				alerta += "- Escribe el nickname \n";
+			}
+			if (fullname.trim() == "") {
+				alerta += "- Escribe el nombre completo \n";
+			}
+			if (mail.trim() == "") {
+				alerta += "- Escribe el correo \n";
+			}
+			if (phone.trim() == "") {
+				alerta += "- Escribe el número de celular \n";
+			}
+
+			if (nickname.length != 8) {
+				alerta += "- Tu nickname debe ser de 8 caracteres\n";
+			}
+
+			var goodMail = /[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.(com|net|org|edu|es)/
+					.test(mail);
+			if (!goodMail) {
+				alerta += "- Escribe un correo valido \n";
+			}
+
+			if (!phone.match(/^[0-9]*$/gm)) {
+				alerta += "- Revisa que el número de celular solo tenga numeros \n";
+			}
+
+			if (!nickname.match(/^[a-z0-9]+$/i)) {
+				alerta += "- El nickname solo puede contener numeros y letras sin espacios \n";
+			}
+
+			if (phone.length != 10) {
+				alerta += "- El número de celular debe tener 10 digitos";
+			}
+
+			if (alerta != "") {
+				alert(alerta);
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+</h:head>
+
+<h:body>
+
+	<h:panelGroup>
+
+		<h:outputStylesheet library="css" name="principal.css" />
+		<h:graphicImage library="images" name="logoPeque.png" styleClass="img" />
+
+		<p:row>
+			<h:form>
+				<p:column>
+					<h:commandButton value="YO" styleClass="btn"
+						action="#{userBean.redireccionMisLibros}"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="MUNDO" styleClass="btn"
+						action="#{userBean.redireccionamientoLibrosMundiales}"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="EDITAR PERFIL" styleClass="btn2"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="CERRAR SESIÓN" styleClass="btn2"
+						action="#{userBean.cerrarSesion}"></h:commandButton>
+				</p:column>
+
+			</h:form>
+		</p:row>
+	</h:panelGroup>
+
+	<br />
+	<br />
+	<hr />
+
+
+	<h:form id="formDialog">
+
+		<p:panelGrid id="modificar" columns="2" border="1" cellpadding="10">
+
+			<h:outputLabel value="Nickname" />
+			<h:inputText value="#{userBean.usuarioModificar.userName}"
+				id="username" />
+			<h:outputLabel value="Nombres y Apellidos" />
+			<h:inputText value="#{userBean.usuarioModificar.fullName}"
+				id="namefull" />
+			<h:outputLabel value="Correo" />
+			<h:inputText value="#{userBean.usuarioModificar.emailAddress}"
+				id="mail" />
+			<h:outputLabel value="Teléfono" />
+			<h:inputText value="#{userBean.usuarioModificar.phoneNumber}"
+				id="phone" />
+
+			<f:facet name="footer">
+				<h:panelGroup style="display:block; text-align:center">
+					<h:commandButton onclick="return valida_modificacion()"
+						action="#{userBean.modificarUsuario2}" value="Continuar" />
+				</h:panelGroup>
+			</f:facet>
+
+		</p:panelGrid>
+
+	</h:form>
+
+
+
+</h:body>
+</html>

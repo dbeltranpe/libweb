@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Auditoria de Usuarios</title>
+</h:head>
+
+<h:body>
+	<h:panelGroup>
+		<h:outputStylesheet library="css" name="principal.css" />
+		<h:graphicImage library="images" name="logoPeque.png" styleClass="img" />
+
+		<p:row>
+			<h:form>
+				<p:column>
+					<h:commandButton value="GESTIÓN" action="gestionAdmon"
+						styleClass="btn"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="AUDITORÍA"
+						action="#{userBean.redireccionamientoAuditoria}" styleClass="btn"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="CERRAR SESIÓN"
+						action="#{userBean.cerrarSesion}" styleClass="btn"></h:commandButton>
+				</p:column>
+			</h:form>
+		</p:row>
+	</h:panelGroup>
+
+
+	<br />
+	<br />
+	<hr />
+	<h:form>
+		<h:outputStylesheet library="css" name="button3.css" />
+		<h:commandButton value="Generar excel"
+			action="#{auditBean.excelAuditorias}" styleClass="btn3">
+		</h:commandButton>
+		<h:commandButton value="Generar pdf"
+			action="#{auditBean.pdfAuditorias}" styleClass="btn3">
+		</h:commandButton>
+	</h:form>
+	<hr />
+	<br />
+
+
+	<h:form id="a">
+		<p:dataTable var="audit" value="#{auditBean.listarAuditoria}" id="dt"
+			rows="15" paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Id" />
+				</f:facet>
+				<h:outputText value="#{audit.id}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="User Id" />
+				</f:facet>
+				<h:outputText value="#{audit.userId}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Operación" />
+				</f:facet>
+				<h:outputText value="#{audit.operation}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Id Tabla" />
+				</f:facet>
+				<h:outputText value="#{audit.tableId}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nombre Tabla" />
+				</f:facet>
+				<h:outputText value="#{audit.tableName}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Fecha" />
+				</f:facet>
+				<h:outputText value="#{audit.createDate}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="IP" />
+				</f:facet>
+				<h:outputText value="#{audit.ip}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Trazabilidad" />
+				</f:facet>
+					<h:outputStylesheet library="css" name="button5.css" />
+					<div align="center">
+						<h:commandButton action="#{auditBean.prepararTrazabilidadUsuario}"
+							value="Ver" styleClass="btn5" />
+					</div>
+			</p:column>
+
+		</p:dataTable>
+
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+	<title>Mi Perfil</title>
+
+	<script language="JavaScript">
+		function valida_agrega() {
+			String
+			alerta = "";
+			var name = document.getElementById('formDialogA:nameAdd').value;
+			var author = document.getElementById('formDialogA:authorAdd').value;
+			var edition = document.getElementById('formDialogA:editionAdd').value;
+			var editorial = document.getElementById('formDialogA:editorialAdd').value;
+
+			if (name.trim() == "") {
+				alerta += "- Escribe el nombre del libro \n";
+			}
+			if (author.trim() == "") {
+				alerta += "- Escribe el autor del libro \n";
+			}
+			if (edition.trim() == "") {
+				alerta += "- Escribe el número de edición del libro\n";
+			}
+			if (editorial.trim() == "") {
+				alerta += "- Escribe el nombre de la editorial del libro \n";
+			}
+			if (!edition.match(/^[0-9]*$/gm)) {
+				alerta += "- Revisa que el número de celular solo tenga numeros \n";
+			}
+
+			if (alerta != "") {
+				alert(alerta);
+				return false;
+			}
+
+			return true;
+		}
+
+		function valida_edita() {
+			String
+			alerta = "";
+			var name = document.getElementById('formDialog:editName').value;
+			var author = document.getElementById('formDialog:editAuthor').value;
+			var edition = document.getElementById('formDialog:editEdition').value;
+			var editorial = document.getElementById('formDialog:editEditorial').value;
+
+			if (name.trim() == "") {
+				alerta += "- Escribe el nombre del libro \n";
+			}
+			if (author.trim() == "") {
+				alerta += "- Escribe el autor del libro \n";
+			}
+			if (edition.trim() == "") {
+				alerta += "- Escribe el número de edición del libro\n";
+			}
+			if (editorial.trim() == "") {
+				alerta += "- Escribe el nombre de la editorial del libro \n";
+			}
+			if (!edition.match(/^[0-9]*$/gm)) {
+				alerta += "- Revisa que el número de celular solo tenga numeros \n";
+			}
+
+			if (alerta != "") {
+				alert(alerta);
+				return false;
+			}
+
+			return true;
+		}
+	</script>
+</h:head>
+
+<h:body>
+	<h:panelGroup>
+
+		<h:outputStylesheet library="css" name="principal.css" />
+		<h:graphicImage library="images" name="logoPeque.png" styleClass="img" />
+
+		<p:row>
+			<h:form>
+				<p:column>
+					<h:commandButton value="YO" styleClass="btn"
+						action="#{userBean.redireccionMisLibros}"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="MUNDO" styleClass="btn"
+						action="#{userBean.redireccionamientoLibrosMundiales}"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="EDITAR PERFIL" styleClass="btn2"
+						action="#{userBean.prepararEditarUsuario}"></h:commandButton>
+				</p:column>
+
+				<p:column>
+					<h:commandButton value="CERRAR SESIÓN" styleClass="btn2"
+						action="#{userBean.cerrarSesion}"></h:commandButton>
+				</p:column>
+
+			</h:form>
+		</p:row>
+	</h:panelGroup>
+
+	<br />
+	<br />
+	<hr />
+	<h:outputStylesheet library="css" name="button3.css" />
+	<p:commandButton value="Agregar Libro"
+		action="#{leftOverBookBean.prepararAdicionarLibroSobrante}"
+		oncomplete="PF('dlg5').show();" styleClass="btn3">
+	</p:commandButton>
+
+	<hr />
+	<br />
+
+	<div>
+		<p:dataTable var="Leftoverbook" value="#{leftOverBookBean.librosUser}"
+			rows="8" paginator="true"
+			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Id" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.id}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Autor" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.author}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Fecha Edición" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.date}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Edición" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.edition}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Editorial" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.editorial}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Nombre" />
+				</f:facet>
+				<h:outputText value="#{Leftoverbook.name}" />
+			</p:column>
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Opciones" />
+				</f:facet>
+
+				<h:outputStylesheet library="css" name="button5.css" />
+				<p:commandButton value="Editar"
+					action="#{leftOverBookBean.prepararModificarLibroSobrante}"
+					update="formDialog:dlg3" oncomplete="PF('dlg3').show();"
+					styleClass="btn5" />
+				<p:commandButton value="Eliminar"
+					action="#{leftOverBookBean.eliminarLibro}" />
+			</p:column>
+		</p:dataTable>
+	</div>
+	
+	<h:form id="formDialogA">
+	<p:dialog header="Agregar Libro" widgetVar="dlg5" modal="true"
+			id="dlg5" width="400" height="225">
+
+			<p:panelGrid id="panel1" columns="2" border="1" cellpadding="10">
+
+				<p:outputLabel value="Nombre" />
+				<p:inputText value="#{leftOverBookBean.libroSobrante.name}"
+					id="nameAdd" />
+				<p:outputLabel value="Autor" />
+				<p:inputText value="#{leftOverBookBean.libroSobrante.author}"
+					id="authorAdd" />
+				<p:outputLabel value="Edición" />
+				<p:inputText value="#{leftOverBookBean.libroSobrante.edition}"
+					id="editionAdd" />
+				<p:outputLabel value="Editorial" />
+				<p:inputText value="#{leftOverBookBean.libroSobrante.editorial}"
+					id="editorialAdd" />
+
+				<f:facet name="footer">
+					<p:commandButton
+						action="#{leftOverBookBean.adicionarLibroSobrante}"
+						onclick="return valida_agrega()" value="Agregar" />
+				</f:facet>
+			</p:panelGrid>
+		</p:dialog>
+	</h:form>
+	
+	<h:form id="formDialog">
+		<p:dialog header="Modificar Libro" widgetVar="dlg3" modal="true"
+			id="dlg3" width="400" height="225">
+
+			<p:panelGrid id="panel" columns="2" border="1" cellpadding="10">
+
+				<p:outputLabel value="Nombre" />
+				<p:inputText value="#{leftOverBookBean.libroSobrante.name}"
+					id="editName" />
+				<p:outputLabel value="Autor" />
+				<p:inputText value="#{leftOverBookBean.libroSobrante.author}"
+					id="editAuthor" />
+				<p:outputLabel value="Edición" />
+				<p:inputText value="#{leftOverBookBean.libroSobrante.edition}"
+					id="editEdition" />
+				<p:outputLabel value="Editorial" />
+				<p:inputText value="#{leftOverBookBean.libroSobrante.editorial}"
+					id="editEditorial" />
+
+				<f:facet name="footer">
+					<p:panelGrid columns="2">
+						<p:commandButton
+							action="#{leftOverBookBean.modificarLibroSobrante}"
+							onclick="return valida_edita()" value="Editar" />
+					</p:panelGrid>
+				</f:facet>
+
+			</p:panelGrid>
+		</p:dialog>
+
+		<p:dialog header="Eliminar Libro" widgetVar="dlg4" modal="true"
+			id="dlg4" width="400" height="225">
+
+
+		</p:dialog>
+
+	</h:form>
+</h:body>
+</html>

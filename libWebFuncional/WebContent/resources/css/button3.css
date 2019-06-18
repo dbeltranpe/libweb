@@ -1,0 +1,17 @@
+.btn3 {
+	-webkit-border-radius: 6;
+	-moz-border-radius: 6;
+	border-radius: 6px;
+	font-family: Courier New;
+	color: #ffffff;
+	font-size: 28px;
+	background: #8facbf;
+	padding: 7px 100px 6px 110px;
+	text-decoration: none;
+}
+
+.btn3:hover {
+	background: #3c5666;
+	text-decoration: none;
+}
+
